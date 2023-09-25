@@ -16,14 +16,14 @@ fi
 echo "Working directory is ${WORKDIR}"
 mkdir -p ${WORKDIR}
 
-source ${HOME}/miniconda3/bin/activate
+source $(dirname $(which conda))/activate
 
 conda create -n ${CONDA_ENV_NAME} python=3.9 --yes
 conda init bash
 conda activate ${CONDA_ENV_NAME}
 
 
-conda install mkl==2023.2.0 mkl-include==2023.2.0 -y
+conda install mkl==2023.2.0 mkl-include==2023.2.0 -c conda-forge -y
 conda install gperftools==2.10 jemalloc==5.2.1 pybind11==2.10.4 llvm-openmp==16.0.6 -c conda-forge -y
 conda install gcc=12.3 gxx=12.3 ninja==1.11.1 -c conda-forge -y
 
@@ -34,7 +34,7 @@ pip install git+https://github.com/intel/neural-compressor.git@${INC_VERSION}
 
 
 # ========== Install torch ===========
-pip3 install --pre torch==2.1.0.dev20230711+cpu torchvision==0.16.0.dev20230711+cpu torchaudio==2.1.0.dev20230711+cpu --index-url https://download.pytorch.org/whl/nightly/cpu
+pip3 install --pre torch==2.2.0.dev20230911+cpu torchvision==0.17.0.dev20230911+cpu torchaudio==2.2.0.dev20230911+cpu --index-url https://download.pytorch.org/whl/nightly/cpu
 ABI=$(python -c "import torch; print(int(torch._C._GLIBCXX_USE_CXX11_ABI))")
 
 # ========== Build llvm-13 =========
@@ -65,7 +65,7 @@ export LLVM_DIR=${USE_LLVM}/lib/cmake/llvm
 cd ${WORKDIR}
 git clone https://github.com/intel/intel-extension-for-pytorch ipex-cpu
 cd ipex-cpu
-git checkout v2.1.0.dev+cpu.llm.mlperf
+git checkout 880fda91ce17e9a956296911949869cb0f1d1cc1
 export IPEX_DIR=${PWD}
 git submodule sync
 git submodule update --init --recursive
@@ -84,12 +84,12 @@ cd ${WORKDIR}
 git clone --branch mlperf_infer_31 https://github.com/libxsmm/tpp-pytorch-extension/ tpp-pytorch-extension
 cd tpp-pytorch-extension
 git submodule update --init
-conda install ninja
+conda install ninja -y
 python setup.py install
 
 # ============ Install transformers =========
 
-pip install transformers==4.28.1
+pip install transformers==4.31
 
 # ============ Install loadgen ==========
 cd ${WORKDIR}
