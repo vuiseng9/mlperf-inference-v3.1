@@ -95,6 +95,7 @@ pip install transformers==4.31
 cd ${WORKDIR}
 git clone https://github.com/mlcommons/inference.git mlperf_inference
 cd mlperf_inference
+git checkout b00fc1989482f0eb3e2f651f4c749cebbdc7931a
 export MLPERF_INFERENCE_ROOT=${PWD}
 
 git submodule update --init --recursive third_party/pybind/
