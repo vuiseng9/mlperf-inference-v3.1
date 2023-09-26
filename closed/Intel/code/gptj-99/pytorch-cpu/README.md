@@ -39,6 +39,10 @@ python download-calibration-dataset.py --calibration-list-file calibration-list.
 python download-dataset.py --split validation --output-dir ${WORKLOAD_DATA}/validation-data
 ```
 
++ Trim cnn-dailymail validation set for quick run (NEW!)
+```
+python trim_cnndaily.py data/validation-data/cnn_dailymail_validation.json
+```
 ### Download and prepare model
 + Get finetuned checkpoint
 
@@ -65,6 +69,13 @@ bash run_quantization_int4.sh
 ```
 
 ### Run Benchmarks with Int8
+Note: once the environment is setup, for any new session, remember to `source setup_env.sh` to get variables set accordingly
++ (NEW!) Quick Offline (Accuracy)
+```
+bash run_offline_accuracy_10_examples.sh
+# you can modify accordingly; trim the dataset to your liking above using trim_cnndaily.py
+```
+
 + Offline (Performance)
 ```
 bash run_offline.sh

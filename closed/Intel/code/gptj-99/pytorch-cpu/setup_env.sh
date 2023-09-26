@@ -7,6 +7,8 @@ export CHECKPOINT_DIR=${WORKLOAD_DATA}/gpt-j-checkpoint
 
 export VALIDATION_DATA_JSON=${WORKLOAD_DATA}/validation-data/cnn_dailymail_validation.json
 
+export TINY_VALIDATION_DATA_JSON=${WORKLOAD_DATA}/validation-data/cnn_dailymail_validation_10_samples.json
+
 export INT8_MODEL_DIR=${WORKLOAD_DATA}/gpt-j-int8-model
 
 export INT4_MODEL_DIR=${WORKLOAD_DATA}/gpt-j-int4-model
