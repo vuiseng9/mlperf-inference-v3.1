@@ -3,8 +3,6 @@ import os
 import mlperf_loadgen as lg
 
 import logging
-from SUT import SUT
-
 from utils import getArgs
 
 logging.basicConfig(level=logging.INFO)
@@ -51,8 +49,13 @@ def main():
 
     settings.mode = lg.TestMode.AccuracyOnly if args.mode.lower()=="accuracy" else lg.TestMode.PerformanceOnly
 
+    if args.workload_name == "gptj":
+        from gptj_SUT import GPTJSUT as SUT
+    elif args.workload_name == "resnet50":
+        from resnet_SUT import ResnetSUT as SUT
+
     sut = SUT(args.num_proc, args.cpus_per_proc, args.model_checkpoint_path, initial_core=args.cores_offset, batch_size=args.batch_size, dataset_path=args.dataset_path, 
-            workers_per_proc=args.workers_per_proc, warmup=args.warmup, precision=args.precision, quantized_model=args.quantized_model, total_sample_count=args.total_sample_count, pad_inputs=args.pad_inputs)
+              workers_per_proc=args.workers_per_proc, warmup=args.warmup, precision=args.precision, quantized_model=args.quantized_model, total_sample_count=args.total_sample_count, pad_inputs=args.pad_inputs)
 
     # Start SUT
     sut.startSUT()

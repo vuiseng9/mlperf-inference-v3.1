@@ -19,7 +19,7 @@ torch._C._jit_set_texpr_fuser_enabled(False)
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("BACKEND")
 
-class Backend(object):
+class GPTJBackend(object):
 
     def __init__(self, model_checkpoint=None, precision="int8", quantized_model=None):
 

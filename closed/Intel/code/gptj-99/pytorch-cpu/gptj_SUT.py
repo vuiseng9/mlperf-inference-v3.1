@@ -117,7 +117,7 @@ class Consumer(mp.Process):
         #self.proc_idx = self.pid
         os.sched_setaffinity(0, self.affinity)
 
-        from backend import Backend
+        from gptj_backend import GPTJBackend as Backend
         self.model = Backend(model_checkpoint=self.model_checkpoint_path,
                 precision=self.precision,
                 quantized_model=self.quantized_model
@@ -164,7 +164,7 @@ class Consumer(mp.Process):
         log.info("{} : Exiting consumer process".format(os.getpid()))
 
 
-class SUT(object):
+class GPTJSUT(object):
     def __init__(self, num_proc, cpus_per_proc, model_checkpoint_path, initial_core=0, batch_size=1, dataset_path=None, workers_per_proc=1, warmup=False, precision="int8", quantized_model=None, total_sample_count=1000, pad_inputs=False):
 
         self.num_proc = num_proc
