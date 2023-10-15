@@ -127,7 +127,7 @@ class Consumer(mp.Process):
         log.info("Loading model")
         self.model.loadModel()
         
-        from dataset import Dataset
+        from cnndaily_dataset import Dataset
         self.data_obj = Dataset(self.dataset_path, model_checkpoint_path=self.model_checkpoint_path, total_sample_count=self.total_sample_count, pad_inputs=self.pad_inputs)
         
         # Load Dataset
