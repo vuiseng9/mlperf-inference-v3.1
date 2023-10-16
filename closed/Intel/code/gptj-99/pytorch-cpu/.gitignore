@@ -1,0 +1,6 @@
+gpt-j-env
+data
+__pycache__/
+nc_workspace/
+utils
+ILSVRC2012_img_val

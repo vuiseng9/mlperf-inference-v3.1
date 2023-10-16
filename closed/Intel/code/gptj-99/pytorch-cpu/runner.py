@@ -6,7 +6,7 @@ import logging
 from utils import getArgs
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger("GPT-J")
+log = logging.getLogger("RUNNER")
 
 SCENARIO_MAP = {
     "singlestream": lg.TestScenario.SingleStream,
@@ -16,26 +16,6 @@ SCENARIO_MAP = {
 
 PAD_VALUE=1
 PAD_MAX=196
-
-def response_loadgen(out_queue):
-
-    while True:
-        next_task = out_queue.get()
-        if next_task is None:
-            # None means shutdown
-            log.info('Exiting response thread')
-            break
-        query_id_list = next_task.query_id_list
-        result = next_task.result
-        array_type_code = next_task.array_type_code
-
-        batch_size = len(query_id_list)
-
-        for id, out in zip(query_id_list, result):
-            response_array = array.array(array_type_code, out)
-            bi = response_array.buffer_info()
-            responses = [lg.QuerySampleResponse(id, bi[0], bi[1]*response_array.itemsize)]
-            lg.QuerySamplesComplete(responses)
 
 def main():
     args = getArgs()
@@ -75,7 +55,7 @@ def main():
     log_settings.enable_trace = False
 
     # Start loadgen test
-    log.info("Starting {}-{} Test".format(args.scenario, args.mode))
+    log.info("Starting * {} * {}-{} Test".format(args.workload_name, args.scenario, args.mode))
     lg.StartTestWithLogSettings(lg_sut, lg_qsl, settings, log_settings)
 
     log.info("Test completed")

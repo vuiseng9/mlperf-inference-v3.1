@@ -1,4 +1,4 @@
-from dataset import Dataset 
+from cnndaily_dataset import Dataset 
 import os
 import time
 import numpy as np
