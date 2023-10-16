@@ -27,5 +27,6 @@ bash rn50-run_offline_accuracy_50_examples.sh
 Opens
 * do the current get sample through torch sampler create overhead to benchmarking? most likely not, just double confirm.
 * the current implementation is not efficient where each consumer create a copy of torch tensor in every new launch. The implication of this is the initial (setup) stage of benchmarking will be long.
+* perf config print out is not accurate, see resnet server case
 * verify channel_last performance
 
