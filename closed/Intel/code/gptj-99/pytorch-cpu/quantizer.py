@@ -18,7 +18,7 @@ import numpy as np
 from itertools import chain
 
 
-from dataset import Dataset
+from cnndaily_dataset import Dataset
 
 calib_size = 1
 
