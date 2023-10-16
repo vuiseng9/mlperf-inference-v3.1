@@ -3,25 +3,28 @@ The current approach is leveraging torchvision as input loader. Steps differs fr
 ```bash
 # run at this level
 # mlperf-inference-v3.1/closed/Intel/code/gptj-99/pytorch-cpu
-bash download_imagenet.sh
+bash vision_tools/download_imagenet.sh
 ```
 ```ILSVRC2012_img_val``` should contain 50K JPEGs. Then we need to organize per torchvision dataset scheme, i.e. all images are put in the same folder, one folder per class.
 ```bash
 cd ILSVRC2012_img_val
-cp vision_tools/valprep.sh .
+cp ../vision_tools/valprep.sh .
 ./valprep.sh # be patient, this may take few minutes with out any traces.
 ```
-check if ```ILSVRC2012_img_val/val``` exists, with 1000 folders (imagenet validation has 1000 classes, 50 images per class)
+check if ```ILSVRC2012_img_val/val``` exists, with 1000 folders (imagenet validation has 1000 classes, 50 images per class) ```ls -d val/* | wc -l```
 
 ### Prepare 8-bit resnet
 ```bash
+conda activate gpt-j-env
 python vision_tools/static_quantize_resnet50.py
 ```
 
 ### Run
 ```bash
+conda activate gpt-j-env
 source setup_env.sh
 bash rn50-run_offline_accuracy_50_examples.sh
+bash rn50-run_server_accuracy_50_examples.sh
 ```
 
 Opens
